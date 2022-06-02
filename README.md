@@ -94,19 +94,53 @@ The directory structure is as follows:
 IntersectionControl
 ├── docs  # Documentation images and files
 ├── intersection_control  # The main source code package
+│   ├── algorithms  # A collection of intersection control algorithm implementations (for now only QBIM). These are implementations of core.Vehicle and core.IntersectionManager
+│   │   ├── qb_im
+│   │   │   ├── _visualise.py
+│   │   │   ├── constants.py 
+│   │   │   ├── qb_im_intersection_manager.py
+│   │   │   └── qb_im_vehicle.py
+│   │   ├── rl_im
+│   │   │   ├── training
+│   │   │   ├── constants.py 
+│   │   │   └── rl_vehicle.py
+│   │   ├── stip
+│   │   │   ├── constants.py 
+│   │   │   └── stip_vehicle.py
+│   │   └── traffic_light
+│   │   │   ├── constants.py 
+│   │   │   └── tl_vehicle.py
+│   ├── communication  # A collection of communication implementations (for now only DistanceBasedUnit). These are implementations of core.MessagingUnit
+│   │   └── distance_based_unit.py
 │   ├── core  # Defines all interfaces and defines the component structure
+│   │   ├── algorithm
+│   │   │   ├── vehicle.py  # Defines the base Vehicle class
+│   │   │   └── intersection_manager.py  # Defines the base IntersectionManager class
 │   │   ├── environment  # Provides an interface for any environment to implement
 │   │   │   ├── environment.py  # Defines the base Environment class
 │   │   │   ├── intersectiont_handler.py  # Defines the base IntersectionHandler class 
 │   │   │   └── vehicle_handler.py  # Defines the base VehicleHandler class
-│   │   ├── algorithm
-│   │   │   ├── vehicle.py  # Defines the base Vehicle class
-│   │   │   └── intersection_manager.py  # Defines the base IntersectionManager class
 │   │   ├── communication.py  # Provides an interface for communication - V2V or V2I is possible. Specifically, defines the base MessagingUnit class
 │   │   └── performance_indication.py  # Defines the base PerformanceIndicator class (Not yet implemented)
-│   ├── algorithms  # A collection of intersection control algorithm implementations (for now only QBIM). These are implementations of core.Vehicle and core.IntersectionManager
-│   ├── environments  # A collection of environment implementations (for now only SUMO). These are implementations of core.Environment
-│   └── communication  # A collection of communication implementations (for now only DistanceBasedUnit). These are implementations of core.MessagingUnit
-├── test  # unit tests for various components
-└── misc  # Miscellaneous stand-alone scripts and experiments
+│   └── environments  # A collection of environment implementations (for now only SUMO). These are implementations of core.Environment
+│   │   └── sumo
+│   │   │   ├── networks
+│   │   │   ├── sumo_environment.py 
+│   │   │   ├── sumo_intersection_handler.py
+│   │   │   └── sumo_vehicle_handler.py
+├── misc  # Miscellaneous stand-alone scripts and experiments
+│   ├── single_lane
+│   │   ├── main.py
+│   │   ├── sample_rl_vehicle.py 
+│   │   ├── single_road_env.py
+│   │   └── test_env.py
+│   ├── avg_speed_varying_vph.py
+│   ├── main.py
+│   └── stupid_algorithm.py
+└── test  # unit tests for various components
+│   ├── algorithms
+│   │   └── qb_im
+│   │   │   └── test_qb_im_intersection_manager.py 
+│   └── environments
+│   │   │   └── test_sumo_intersection_handler.py 
 ```

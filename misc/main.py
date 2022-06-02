@@ -69,4 +69,7 @@ def main():
 
 # this is the main entry point of this script
 if __name__ == "__main__":
+    import os
+    # print(os.getcwd())
     main()
+
