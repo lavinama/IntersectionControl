@@ -1,6 +1,5 @@
 from intersection_control.core import Vehicle, Environment
 
-
 class SimpleRLVehicle(Vehicle):
     def __init__(self, vehicle_id: str, environment: Environment):
         super().__init__(vehicle_id, environment)
