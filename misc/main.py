@@ -65,6 +65,14 @@ def main():
 # this is the main entry point of this script
 if __name__ == "__main__":
     import os
-    # print(os.getcwd())
+    import sys
+    myDir = os.getcwd()
+    sys.path.append(myDir)
+
+    from pathlib import Path
+    path = Path(myDir)
+    a=str(path.parent.absolute())
+    sys.path.append(a)
+
     main()
 
