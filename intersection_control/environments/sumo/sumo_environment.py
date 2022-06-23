@@ -26,7 +26,7 @@ class SumoEnvironment(Environment):
         net_file = os.path.join(os.path.dirname(net_config_file),
                                 next(sumolib.xml.parse_fast(net_config_file, "net-file", "value")).value)
         route_file = os.path.join(os.path.dirname(net_config_file),
-                                  next(sumolib.xml.parse_fast(net_config_file, "route-files", "value")).value)
+                                next(sumolib.xml.parse_fast(net_config_file, "route-files", "value")).value)
         self.net = sumolib.net.readNet(net_file, withInternal=True)
         self.routes = {route.id: route.edges.split() for route in
                        sumolib.xml.parse_fast(route_file, 'route', ['id', 'edges'])}

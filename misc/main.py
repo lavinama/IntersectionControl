@@ -1,4 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python errors 
+
+# To make sure that this file runs correctly without relative import module errors, write:
+# export PYTHONPATH=/home/mario/Individual/IntersectionControl
+
 import logging
 
 from intersection_control.algorithms.stip.stip_vehicle import STIPVehicle
@@ -41,7 +45,15 @@ def main():
         "WN": rate, "WE": rate, "WS": rate
     }, 0.05)
     # demand_generator = ConflictingDemandGenerator()
-    env = SumoEnvironment("intersection_control/environments/sumo/networks/single_intersection/intersection.sumocfg",
+    net_config_file = "intersection_control/environments/sumo/networks/single_intersection/intersection.sumocfg"
+    net_config_file = "/home/mario/Individual/IntersectionControl/intersection_control/environments/sumo/networks/single_intersection/intersection-mario.sumocfg"
+    import sumolib
+    parse_fast = iter(sumolib.xml.parse_fast(net_config_file, "net-file", "value"))
+    print(iter(parse_fast))
+    print(next(parse_fast))
+    print("finished")
+    exit()
+    env = SumoEnvironment("./intersection_control/environments/sumo/networks/single_intersection/intersection-mario.sumocfg",
                           demand_generator=demand_generator, time_step=0.05, gui=True)
 
     intersection_managers = {im_factory[algo](intersection_id, env) for intersection_id in
@@ -50,17 +62,18 @@ def main():
 
     for _ in range(STEP_COUNT):
         env.step()
+        
         removed_vehicles = {v for v in vehicles if v.get_id() in env.get_removed_vehicles()}
         for v in removed_vehicles:
             v.destroy()
         new_vehicles = {vehicle_factory[algo](vehicle_id, env) for vehicle_id in env.get_added_vehicles()}
         vehicles = (vehicles - removed_vehicles).union(new_vehicles)
+        
         for vehicle in vehicles:
             vehicle.step()
         if intersection_managers:
             for im in intersection_managers:
                 im.step()
-
 
 # this is the main entry point of this script
 if __name__ == "__main__":
@@ -75,4 +88,3 @@ if __name__ == "__main__":
     sys.path.append(a)
 
     main()
-
